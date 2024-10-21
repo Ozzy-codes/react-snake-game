@@ -1,27 +1,39 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 import './App.css'
-
-const boundaryRight = new Map()
-boundaryRight.set(10, true)
+import moveRight from './model/moveSnake/right'
+// import moveDown from './model/moveSnake/down'
 
 function App() {
   const [snake, setSnake] = useState([0])
+  const effect = useCallback(() => moveRight(snake, setSnake), [snake])
 
+  useEffect(effect, [effect])
   useEffect(() => {
-    const timeoutId = setTimeout(() => {
-      const tail = snake.length - 1
-      const newValue = ++snake[tail]
-      // console.log("snake: ", snake)
-      snake.splice(0, 1)
-      if (!boundaryRight.has(newValue)) {
-        setSnake([...snake, newValue])
+    const handleKeyDown = (e: KeyboardEvent) => {
+      switch (e.key) {
+        case "ArrowDown":
+          console.log('down arrow pressed');
+          break;
+        case "ArrowUp":
+          console.log('up arrow pressed');
+          break;
+        case "ArrowLeft":
+          console.log('left arrow pressed');
+          break;
+        case "ArrowRight":
+          console.log('right arrow pressed');
+          break;
+        default: break;
       }
-    }, 1000)
-    return () => clearTimeout(timeoutId)
-  }, [snake])
+    }
+    window.addEventListener('keydown', handleKeyDown);
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    }
+  }, [])
 
   const content = () => {
-    const list = new Array(10)
+    const list = new Array(40)
     for (let i = 0; i < list.length; i++) {
       const divStyle = snake.includes(i) ? 'blankSpace snake' : 'blankSpace'
       list[i] = (<div key={i} className={divStyle}></div>)

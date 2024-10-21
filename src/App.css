@@ -16,6 +16,7 @@ body {
   background: grey;
   display: flex;
   justify-content: stretch;
+  flex-wrap: wrap;
 }
 
 .blankSpace {
