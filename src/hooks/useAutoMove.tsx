@@ -1,7 +1,9 @@
 import { Dispatch, SetStateAction, useEffect } from "react"
 
 const boundaryRight = new Map()
-boundaryRight.set(10, true)
+for (let i = 0; i < 50; i += 10) {
+	boundaryRight.set(i, true)
+}
 
 export default function useAutoMove(snake: number[], setSnake: Dispatch<SetStateAction<number[]>>, direction: string) {
 
