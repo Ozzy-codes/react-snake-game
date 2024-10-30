@@ -1,36 +1,14 @@
-import { useEffect, useState, useCallback } from 'react'
+import { useState, } from 'react'
 import './App.css'
-import moveRight from './model/moveSnake/right'
-// import moveDown from './model/moveSnake/down'
+import useUserInput from './hooks/useUserInput'
+import useAutoMove from './hooks/useAutoMove'
 
 function App() {
   const [snake, setSnake] = useState([0])
-  const effect = useCallback(() => moveRight(snake, setSnake), [snake])
+  const [direction, setDirection] = useState("right")
+  useUserInput(setDirection)
+  useAutoMove(snake, setSnake, direction)
 
-  useEffect(effect, [effect])
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      switch (e.key) {
-        case "ArrowDown":
-          console.log('down arrow pressed');
-          break;
-        case "ArrowUp":
-          console.log('up arrow pressed');
-          break;
-        case "ArrowLeft":
-          console.log('left arrow pressed');
-          break;
-        case "ArrowRight":
-          console.log('right arrow pressed');
-          break;
-        default: break;
-      }
-    }
-    window.addEventListener('keydown', handleKeyDown);
-    return () => {
-      window.removeEventListener('keydown', handleKeyDown);
-    }
-  }, [])
 
   const content = () => {
     const list = new Array(40)
