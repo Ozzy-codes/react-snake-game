@@ -16,9 +16,11 @@ export default function useAutoMove(snake: number[], setSnake: Dispatch<SetState
 				timeoutId = setTimeout(() => {
 					const tail = snake.length - 1
 					const newValue = ++snake[tail]
-					snake.splice(0, 1)
 					if (!boundaryRight.has(newValue)) {
-						setSnake([...snake, newValue])
+						setSnake(snake => {
+							snake.splice(0, 1)
+							return [...snake, newValue]
+						})
 					}
 				}, 1000);
 				break;
@@ -27,9 +29,11 @@ export default function useAutoMove(snake: number[], setSnake: Dispatch<SetState
 				timeoutId = setTimeout(() => {
 					const tail = snake.length - 1
 					const newValue = snake[tail] + 10
-					snake.splice(0, 1)
 					if (newValue < 40) {
-						setSnake([...snake, newValue])
+						setSnake(snake => {
+							snake.splice(0, 1)
+							return [...snake, newValue]
+						})
 					}
 				}, 1000);
 				break;
@@ -37,4 +41,3 @@ export default function useAutoMove(snake: number[], setSnake: Dispatch<SetState
 		return () => clearTimeout(timeoutId)
 	}, [direction, snake, setSnake])
 }
-
