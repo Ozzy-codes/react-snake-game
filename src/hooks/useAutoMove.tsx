@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction } from "react"
+import { Dispatch, SetStateAction, useState } from "react"
 import { useInterval } from "./useInterval"
 
 const boundaryRight = new Map()
@@ -7,6 +7,8 @@ for (let i = 0; i < 400; i += 20) {
 }
 
 export default function useAutoMove(snake: number[], setSnake: Dispatch<SetStateAction<number[]>>, direction: string) {
+  console.log("useAutoMove called")
+  const [isOutofBounds, setIsOutOfBounds] = useState(false)
 
   const switchFn = () => {
     switch (direction) {
@@ -20,6 +22,9 @@ export default function useAutoMove(snake: number[], setSnake: Dispatch<SetState
               snake.splice(0, 1)
               return [...snake, newValue]
             })
+          } else {
+            setIsOutOfBounds(true)
+            setSnake([0])
           }
         }
         break;
@@ -33,6 +38,9 @@ export default function useAutoMove(snake: number[], setSnake: Dispatch<SetState
               snake.splice(0, 1)
               return [...snake, newValue]
             })
+          } else {
+            setIsOutOfBounds(true)
+            setSnake([0])
           }
         }
         break;

@@ -1,5 +1,4 @@
 import { Dispatch, SetStateAction, useEffect } from "react";
-import useUpdateSnake from "./useUpdateSnake";
 
 export default function useUserInput(setDirection: Dispatch<SetStateAction<string>>) {
 
