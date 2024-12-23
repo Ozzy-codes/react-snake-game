@@ -1,9 +1,9 @@
 import { Dispatch, SetStateAction, useEffect } from "react";
+import useUpdateSnake from "./useUpdateSnake";
 
 export default function useUserInput(setDirection: Dispatch<SetStateAction<string>>) {
 
   useEffect(() => {
-    console.log("useUserInput useEffect called")
     const handleKeyDown = (e: KeyboardEvent) => {
       switch (e.key) {
         case "ArrowDown":
