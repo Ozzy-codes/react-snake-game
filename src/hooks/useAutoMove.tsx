@@ -2,7 +2,7 @@ import { Dispatch, SetStateAction } from "react"
 import { useInterval } from "./useInterval"
 
 const boundaryRight = new Map()
-for (let i = 0; i < 50; i += 10) {
+for (let i = 0; i < 400; i += 20) {
   boundaryRight.set(i, true)
 }
 
@@ -27,8 +27,8 @@ export default function useAutoMove(snake: number[], setSnake: Dispatch<SetState
         console.log("snake in moveDown: ", snake)
         {
           const tail = snake.length - 1
-          const newValue = snake[tail] + 10
-          if (newValue < 40) {
+          const newValue = snake[tail] + 20
+          if (newValue < 400) {
             setSnake(snake => {
               snake.splice(0, 1)
               return [...snake, newValue]
@@ -39,38 +39,5 @@ export default function useAutoMove(snake: number[], setSnake: Dispatch<SetState
     }
   }
 
-  useInterval(switchFn, 500)
-  // useEffect(() => {
-  //   let timeoutId: number
-  //
-  //   switch (direction) {
-  //     case "right":
-  //       console.log("snake in moveRight: ", snake)
-  //       timeoutId = setTimeout(() => {
-  //         const tail = snake.length - 1
-  //         const newValue = ++snake[tail]
-  //         if (!boundaryRight.has(newValue)) {
-  //           setSnake(snake => {
-  //             snake.splice(0, 1)
-  //             return [...snake, newValue]
-  //           })
-  //         }
-  //       }, 1000);
-  //       break;
-  //     case "down":
-  //       console.log("snake in moveDown: ", snake)
-  //       timeoutId = setTimeout(() => {
-  //         const tail = snake.length - 1
-  //         const newValue = snake[tail] + 10
-  //         if (newValue < 40) {
-  //           setSnake(snake => {
-  //             snake.splice(0, 1)
-  //             return [...snake, newValue]
-  //           })
-  //         }
-  //       }, 1000);
-  //       break;
-  //   }
-  //   return () => clearTimeout(timeoutId)
-  // }, [direction, snake, setSnake])
+  useInterval(switchFn, 500, isOutofBounds)
 }

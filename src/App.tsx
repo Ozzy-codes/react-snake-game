@@ -11,7 +11,7 @@ function App() {
 
 
   const content = () => {
-    const list = new Array(40)
+    const list = new Array(400)
     for (let i = 0; i < list.length; i++) {
       const divStyle = snake.includes(i) ? 'blankSpace snake' : 'blankSpace'
       list[i] = (<div key={i} className={divStyle}></div>)
