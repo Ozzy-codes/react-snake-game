@@ -1,25 +1,38 @@
-import { Dispatch, SetStateAction, useEffect } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 
-export default function useUserInput(setDirection: Dispatch<SetStateAction<string>>) {
+export default function useUserInput(setNextDirection: Dispatch<SetStateAction<string>>) {
+  const [directionState, setDirectionState] = useState<null | string>(null)
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       switch (e.key) {
         case "ArrowDown":
           console.log('down arrow pressed');
-          setDirection("down")
+          if (directionState !== "up" && directionState !== "down") {
+            setNextDirection("down")
+            setDirectionState("down")
+          }
           break;
         case "ArrowUp":
           console.log('up arrow pressed');
-          setDirection("up")
+          if (directionState !== "up" && directionState !== "down") {
+            setNextDirection("up")
+            setDirectionState("up")
+          }
           break;
         case "ArrowLeft":
           console.log('left arrow pressed');
-          setDirection("left")
+          if (directionState !== "right" && directionState !== "left") {
+            setNextDirection("left")
+            setDirectionState("left")
+          }
           break;
         case "ArrowRight":
           console.log('right arrow pressed');
-          setDirection("right")
+          if (directionState !== "right" && directionState !== "left") {
+            setNextDirection("right")
+            setDirectionState("right")
+          }
           break;
         default: break;
       }
@@ -28,5 +41,5 @@ export default function useUserInput(setDirection: Dispatch<SetStateAction<strin
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
     }
-  }, [setDirection])
+  }, [setNextDirection, directionState])
 }
