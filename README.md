@@ -34,7 +34,7 @@ CREATE A SNAKE GAME!
 - determine how to move snake
   > need a set timeout that continue to update the head and tail of the snake in one direction.
   > once a keypress of up, down, left or right is pressed the previous set timeout is cleaned up and a new one is started in the new direction. 
-  > NOTE: do we need to check if key pressed are null e.g. if snake is already heading up, should the up key be silenced? may involve state check
+  > do we need to check if key pressed are null e.g. if snake is already heading up, should the up key be silenced? may involve state check
 
 - What does an interaction with food look like?
   > Snake keeps moving forward in one direction, snake grows in size by one. 

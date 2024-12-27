@@ -11,9 +11,11 @@ export default function useUserInput(setDirection: Dispatch<SetStateAction<strin
           break;
         case "ArrowUp":
           console.log('up arrow pressed');
+          setDirection("up")
           break;
         case "ArrowLeft":
           console.log('left arrow pressed');
+          setDirection("left")
           break;
         case "ArrowRight":
           console.log('right arrow pressed');
