@@ -19,12 +19,17 @@ body {
   flex-wrap: wrap;
 }
 
-.blankSpace {
+.space {
+  --_bg: var(--bg, white);
   width: 20px;
   height: 20px;
-  background: white;
+  background: var(--_bg);
 }
 
 .snake {
-  background: green;
+  --bg: green;
+}
+
+.food {
+  --bg: red;
 }
