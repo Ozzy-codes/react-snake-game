@@ -15,6 +15,7 @@ function App() {
   useUserInput(setDirection)
   useAutoMove(snake, setSnake, direction)
 
+  //  TODO: prevent snake from crossing itself
   if (snake.includes(food)) {
     let potentialFood
     do {
