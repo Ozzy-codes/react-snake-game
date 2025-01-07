@@ -15,19 +15,21 @@ function App() {
   useUserInput(setDirection)
   useAutoMove(snake, setSnake, direction)
 
-  //  TODO: how to randomly add food to the content, while ensuring it wont be on the snake
+  if (snake.includes(food)) {
+    let potentialFood
+    do {
+      potentialFood = generateRandomNumber()
+    } while (snake.includes(potentialFood))
+    setSnake(prev => {
+      return [...prev, food]
+    })
+    setFood(() => potentialFood)
+  }
   const content = () => {
     const list = new Array(boardSize)
     for (let i = 0; i < list.length; i++) {
       let divStyle
-
-      if (snake.includes(food)) {
-        let potentialFood
-        do {
-          potentialFood = generateRandomNumber()
-        } while (snake.includes(potentialFood))
-        setFood(potentialFood)
-      } else if (i === food) {
+      if (i === food) {
         divStyle = "space food"
       } else if (snake.includes(i)) {
         divStyle = "space snake"

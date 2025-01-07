@@ -11,20 +11,20 @@ for (let i = -1; i < 400; i += 20) {
 }
 
 export default function useAutoMove(snake: number[], setSnake: Dispatch<SetStateAction<number[]>>, direction: string) {
-  console.log("useAutoMove called")
   const [isOutofBounds, setIsOutOfBounds] = useState(false)
+
+  console.log("useAutoMove - current snake: ", snake)
 
   const switchFn = () => {
     switch (direction) {
       case "right":
-        console.log("snake moving right: ", snake)
         {
           const tail = snake.length - 1
-          const newValue = ++snake[tail]
+          const newValue = snake[tail] + 1
           if (!boundaryRight.has(newValue)) {
             setSnake(snake => {
-              snake.splice(0, 1)
-              return [...snake, newValue]
+              const newArr = snake.toSpliced(0, 1)
+              return [...newArr, newValue]
             })
           } else {
             setIsOutOfBounds(true)
@@ -33,14 +33,13 @@ export default function useAutoMove(snake: number[], setSnake: Dispatch<SetState
         }
         break;
       case "left":
-        console.log("snake moving left: ", snake)
         {
           const tail = snake.length - 1
-          const newValue = --snake[tail]
+          const newValue = snake[tail] - 1
           if (!boundaryLeft.has(newValue)) {
-            setSnake(snake => {
-              snake.splice(0, 1)
-              return [...snake, newValue]
+            setSnake(prev => {
+              const newArr = prev.toSpliced(0, 1)
+              return [...newArr, newValue]
             })
           } else {
             setIsOutOfBounds(true)
@@ -49,14 +48,13 @@ export default function useAutoMove(snake: number[], setSnake: Dispatch<SetState
         }
         break;
       case "down":
-        console.log("snake in moveDown: ", snake)
         {
           const tail = snake.length - 1
           const newValue = snake[tail] + 20
           if (newValue < 400) {
             setSnake(snake => {
-              snake.splice(0, 1)
-              return [...snake, newValue]
+              const newArr = snake.toSpliced(0, 1)
+              return [...newArr, newValue]
             })
           } else {
             setIsOutOfBounds(true)
@@ -65,14 +63,13 @@ export default function useAutoMove(snake: number[], setSnake: Dispatch<SetState
         }
         break;
       case "up":
-        console.log("snake moving up: ", snake)
         {
           const tail = snake.length - 1
           const newValue = snake[tail] - 20
           if (newValue > 0) {
             setSnake(snake => {
-              snake.splice(0, 1)
-              return [...snake, newValue]
+              const newArr = snake.toSpliced(0, 1)
+              return [...newArr, newValue]
             })
           } else {
             setIsOutOfBounds(true)
