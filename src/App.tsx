@@ -4,7 +4,7 @@ import useUserInput from "./hooks/useUserInput"
 import useAutoMove from "./hooks/useAutoMove"
 
 const boardSize = 400
-const generateRandomNumber = () => {
+const generateRandomSpace = () => {
   return Math.floor(Math.random() * boardSize)
 }
 
@@ -15,17 +15,17 @@ function App() {
   useUserInput(setDirection)
   useAutoMove(snake, setSnake, direction)
 
-  //  TODO: prevent snake from crossing itself
   if (snake.includes(food)) {
     let potentialFood
     do {
-      potentialFood = generateRandomNumber()
+      potentialFood = generateRandomSpace()
     } while (snake.includes(potentialFood))
     setSnake(prev => {
       return [...prev, food]
     })
     setFood(() => potentialFood)
   }
+
   const content = () => {
     const list = new Array(boardSize)
     for (let i = 0; i < list.length; i++) {
