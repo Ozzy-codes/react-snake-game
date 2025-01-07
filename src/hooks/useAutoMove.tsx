@@ -21,7 +21,7 @@ export default function useAutoMove(snake: number[], setSnake: Dispatch<SetState
         {
           const tail = snake.length - 1
           const newValue = snake[tail] + 1
-          if (!boundaryRight.has(newValue)) {
+          if (!boundaryRight.has(newValue) && !snake.includes(newValue)) {
             setSnake(snake => {
               const newArr = snake.toSpliced(0, 1)
               return [...newArr, newValue]
@@ -36,7 +36,7 @@ export default function useAutoMove(snake: number[], setSnake: Dispatch<SetState
         {
           const tail = snake.length - 1
           const newValue = snake[tail] - 1
-          if (!boundaryLeft.has(newValue)) {
+          if (!boundaryLeft.has(newValue) && !snake.includes(newValue)) {
             setSnake(prev => {
               const newArr = prev.toSpliced(0, 1)
               return [...newArr, newValue]
@@ -51,7 +51,7 @@ export default function useAutoMove(snake: number[], setSnake: Dispatch<SetState
         {
           const tail = snake.length - 1
           const newValue = snake[tail] + 20
-          if (newValue < 400) {
+          if (newValue < 400 && !snake.includes(newValue)) {
             setSnake(snake => {
               const newArr = snake.toSpliced(0, 1)
               return [...newArr, newValue]
@@ -66,7 +66,7 @@ export default function useAutoMove(snake: number[], setSnake: Dispatch<SetState
         {
           const tail = snake.length - 1
           const newValue = snake[tail] - 20
-          if (newValue > 0) {
+          if (newValue > 0 && !snake.includes(newValue)) {
             setSnake(snake => {
               const newArr = snake.toSpliced(0, 1)
               return [...newArr, newValue]
