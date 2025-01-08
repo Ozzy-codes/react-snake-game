@@ -1,34 +1,58 @@
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useEffect } from "react";
+import GameBoard from "../enum/gameboard";
 
-export default function useUserInput(setNextDirection: Dispatch<SetStateAction<string>>) {
-  const [directionState, setDirectionState] = useState<null | string>(null)
+export default function useUserInput(setNextDirection: Dispatch<SetStateAction<string>>, snake: number[]) {
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       switch (e.key) {
         case "ArrowDown":
-          if (directionState !== "up" && directionState !== "down") {
+        case "j": {
+          const tail = snake.length - 1
+          const tailValue = snake[tail]
+          const behindTailValue = snake[tail - 1]
+          const nextValue = tailValue + GameBoard.RowLength
+          console.log("down pressed")
+          if (nextValue !== behindTailValue) {
             setNextDirection("down")
-            setDirectionState("down")
           }
+        }
           break;
         case "ArrowUp":
-          if (directionState !== "up" && directionState !== "down") {
+        case "k": {
+          const tail = snake.length - 1
+          const tailValue = snake[tail]
+          const behindTailValue = snake[tail - 1]
+          const nextValue = tailValue - GameBoard.RowLength
+          console.log("up pressed")
+          if (nextValue !== behindTailValue) {
             setNextDirection("up")
-            setDirectionState("up")
           }
+        }
           break;
         case "ArrowLeft":
-          if (directionState !== "right" && directionState !== "left") {
+        case "h": {
+          const tail = snake.length - 1
+          const tailValue = snake[tail]
+          const behindTailValue = snake[tail - 1]
+          const nextValue = tailValue - 1
+          console.log("left pressed")
+          if (nextValue !== behindTailValue) {
             setNextDirection("left")
-            setDirectionState("left")
           }
+        }
           break;
         case "ArrowRight":
-          if (directionState !== "right" && directionState !== "left") {
+        case "l": {
+          const tail = snake.length - 1
+          const tailValue = snake[tail]
+          const behindTailValue = snake[tail - 1]
+          const nextValue = tailValue + 1
+          console.log("right pressed")
+          if (nextValue !== behindTailValue) {
             setNextDirection("right")
-            setDirectionState("right")
           }
+        }
           break;
         default: break;
       }
@@ -37,5 +61,5 @@ export default function useUserInput(setNextDirection: Dispatch<SetStateAction<s
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
     }
-  }, [setNextDirection, directionState])
+  }, [setNextDirection, snake])
 }

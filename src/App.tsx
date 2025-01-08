@@ -8,12 +8,11 @@ const generateRandomSpace = () => {
   return Math.floor(Math.random() * GameBoard.Size)
 }
 
-//  BUG: if the user is quick enough you can have the snake eat itself if the user hits "up, left" -> "up, right" || "down, left" -> "down,right" or any combination that includes a perpendicular direction first.
 function App() {
   const [snake, setSnake] = useState([0])
   const [food, setFood] = useState(190)
   const [direction, setDirection] = useState("right")
-  useUserInput(setDirection)
+  useUserInput(setDirection, snake)
   useAutoMove(snake, setSnake, direction)
 
   if (snake.includes(food)) {
