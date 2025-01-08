@@ -2,12 +2,13 @@ import { useState, } from "react"
 import "./App.css"
 import useUserInput from "./hooks/useUserInput"
 import useAutoMove from "./hooks/useAutoMove"
+import GameBoard from "./enum/gameboard"
 
-const boardSize = 400
 const generateRandomSpace = () => {
-  return Math.floor(Math.random() * boardSize)
+  return Math.floor(Math.random() * GameBoard.Size)
 }
 
+//  BUG: if the user is quick enough you can have the snake eat itself if the user hits "up, left" -> "up, right" || "down, left" -> "down,right" or any combination that includes a perpendicular direction first.
 function App() {
   const [snake, setSnake] = useState([0])
   const [food, setFood] = useState(190)
@@ -27,7 +28,7 @@ function App() {
   }
 
   const content = () => {
-    const list = new Array(boardSize)
+    const list = new Array(GameBoard.Size)
     for (let i = 0; i < list.length; i++) {
       let divStyle
       if (i === food) {

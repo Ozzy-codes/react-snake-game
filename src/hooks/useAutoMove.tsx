@@ -1,12 +1,13 @@
 import { Dispatch, SetStateAction, useState } from "react"
 import { useInterval } from "./useInterval"
+import GameBoard from "../enum/gameboard"
 
 const boundaryRight = new Map()
-for (let i = 0; i < 400; i += 20) {
+for (let i = 0; i < GameBoard.Size; i += GameBoard.RowLength) {
   boundaryRight.set(i, true)
 }
 const boundaryLeft = new Map()
-for (let i = -1; i < 400; i += 20) {
+for (let i = -1; i < GameBoard.Size; i += GameBoard.RowLength) {
   boundaryLeft.set(i, true)
 }
 
@@ -19,6 +20,7 @@ export default function useAutoMove(snake: number[], setSnake: Dispatch<SetState
     switch (direction) {
       case "right":
         {
+          console.log("moving right")
           const tail = snake.length - 1
           const newValue = snake[tail] + 1
           if (!boundaryRight.has(newValue) && !snake.includes(newValue)) {
@@ -34,6 +36,7 @@ export default function useAutoMove(snake: number[], setSnake: Dispatch<SetState
         break;
       case "left":
         {
+          console.log("moving left")
           const tail = snake.length - 1
           const newValue = snake[tail] - 1
           if (!boundaryLeft.has(newValue) && !snake.includes(newValue)) {
@@ -49,9 +52,10 @@ export default function useAutoMove(snake: number[], setSnake: Dispatch<SetState
         break;
       case "down":
         {
+          console.log("moving down")
           const tail = snake.length - 1
-          const newValue = snake[tail] + 20
-          if (newValue < 400 && !snake.includes(newValue)) {
+          const newValue = snake[tail] + GameBoard.RowLength
+          if (newValue < GameBoard.Size && !snake.includes(newValue)) {
             setSnake(snake => {
               const newArr = snake.toSpliced(0, 1)
               return [...newArr, newValue]
@@ -64,8 +68,9 @@ export default function useAutoMove(snake: number[], setSnake: Dispatch<SetState
         break;
       case "up":
         {
+          console.log("moving up")
           const tail = snake.length - 1
-          const newValue = snake[tail] - 20
+          const newValue = snake[tail] - GameBoard.RowLength
           if (newValue > 0 && !snake.includes(newValue)) {
             setSnake(snake => {
               const newArr = snake.toSpliced(0, 1)
@@ -80,5 +85,5 @@ export default function useAutoMove(snake: number[], setSnake: Dispatch<SetState
     }
   }
 
-  useInterval(switchFn, 500, isOutofBounds)
+  useInterval(switchFn, 300, isOutofBounds)
 }
