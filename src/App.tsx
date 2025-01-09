@@ -11,7 +11,7 @@ const generateRandomSpace = () => {
 function App() {
   const [snake, setSnake] = useState([0])
   const [food, setFood] = useState(190)
-  const [direction, setDirection] = useState("right")
+  const [direction, setDirection] = useState<string | null>(null)
   useUserInput(setDirection, snake)
   useAutoMove(snake, setSnake, direction)
 

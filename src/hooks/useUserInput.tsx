@@ -1,7 +1,8 @@
-import { Dispatch, SetStateAction, useEffect } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import GameBoard from "../enum/gameboard";
 
-export default function useUserInput(setNextDirection: Dispatch<SetStateAction<string>>, snake: number[]) {
+export default function useUserInput(setNextDirection: Dispatch<SetStateAction<string | null>>, snake: number[]) {
+  const [currentDirection, setCurrentDirection] = useState<string | null>(null)
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -12,9 +13,12 @@ export default function useUserInput(setNextDirection: Dispatch<SetStateAction<s
           const tailValue = snake[tail]
           const behindTailValue = snake[tail - 1]
           const nextValue = tailValue + GameBoard.RowLength
-          console.log("down pressed")
-          if (nextValue !== behindTailValue) {
+          if (snake.length === 1 && currentDirection === null) {
             setNextDirection("down")
+            setCurrentDirection("down")
+          } else if (snake.length === 1 && currentDirection !== "up" || !!behindTailValue && nextValue !== behindTailValue) {
+            setNextDirection("down")
+            setCurrentDirection("down")
           }
         }
           break;
@@ -24,9 +28,12 @@ export default function useUserInput(setNextDirection: Dispatch<SetStateAction<s
           const tailValue = snake[tail]
           const behindTailValue = snake[tail - 1]
           const nextValue = tailValue - GameBoard.RowLength
-          console.log("up pressed")
-          if (nextValue !== behindTailValue) {
+          if (snake.length === 1 && currentDirection === null) {
             setNextDirection("up")
+            setCurrentDirection("up")
+          } else if (snake.length === 1 && currentDirection !== "down" || !!behindTailValue && nextValue !== behindTailValue) {
+            setNextDirection("up")
+            setCurrentDirection("up")
           }
         }
           break;
@@ -36,9 +43,12 @@ export default function useUserInput(setNextDirection: Dispatch<SetStateAction<s
           const tailValue = snake[tail]
           const behindTailValue = snake[tail - 1]
           const nextValue = tailValue - 1
-          console.log("left pressed")
-          if (nextValue !== behindTailValue) {
+          if (snake.length === 1 && currentDirection === null) {
             setNextDirection("left")
+            setCurrentDirection("left")
+          } else if (snake.length === 1 && currentDirection !== "right" || !!behindTailValue && nextValue !== behindTailValue) {
+            setNextDirection("left")
+            setCurrentDirection("left")
           }
         }
           break;
@@ -48,9 +58,12 @@ export default function useUserInput(setNextDirection: Dispatch<SetStateAction<s
           const tailValue = snake[tail]
           const behindTailValue = snake[tail - 1]
           const nextValue = tailValue + 1
-          console.log("right pressed")
-          if (nextValue !== behindTailValue) {
+          if (snake.length === 1 && currentDirection === null) {
             setNextDirection("right")
+            setCurrentDirection("right")
+          } else if (snake.length === 1 && currentDirection !== "left" || !!behindTailValue && nextValue !== behindTailValue) {
+            setNextDirection("right")
+            setCurrentDirection("right")
           }
         }
           break;
@@ -61,5 +74,5 @@ export default function useUserInput(setNextDirection: Dispatch<SetStateAction<s
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
     }
-  }, [setNextDirection, snake])
+  }, [setNextDirection, currentDirection, snake])
 }

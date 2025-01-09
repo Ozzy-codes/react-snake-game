@@ -11,7 +11,7 @@ for (let i = -1; i < GameBoard.Size; i += GameBoard.RowLength) {
   boundaryLeft.set(i, true)
 }
 
-export default function useAutoMove(snake: number[], setSnake: Dispatch<SetStateAction<number[]>>, direction: string) {
+export default function useAutoMove(snake: number[], setSnake: Dispatch<SetStateAction<number[]>>, direction: string | null) {
   const [isOutofBounds, setIsOutOfBounds] = useState(false)
 
   console.log("useAutoMove - current snake: ", snake)
