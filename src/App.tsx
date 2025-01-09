@@ -9,7 +9,7 @@ const generateRandomSpace = () => {
 }
 
 function App() {
-  const [snake, setSnake] = useState([0])
+  const [snake, setSnake] = useState([185])
   const [food, setFood] = useState(190)
   const [direction, setDirection] = useState<string | null>(null)
   useUserInput(setDirection, snake)
